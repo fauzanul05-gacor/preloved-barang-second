@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#153d2d" />
+  <title>secondary.app — Barang Lama, Cerita Baru</title>
+  <meta name="description" content="Temukan dan jual barang preloved berkualitas di seluruh Indonesia bersama secondary.app." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --green:#153d2d;--green-2:#286044;--green-3:#e8f0dc;--cream:#f7f5ec;
+      --paper:#fffefa;--orange:#ef9b3d;--ink:#19251e;--muted:#778078;
+      --line:#e8e9e1;--shadow:0 12px 34px rgba(24,48,34,.08);--radius:18px;
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}
+    body{margin:0;background:#fbfaf5;color:var(--ink);font-family:"DM Sans",sans-serif}
+    button,input,select,textarea{font:inherit}button{cursor:pointer}
+    .container{width:min(1180px,calc(100% - 40px));margin:auto}
+    .topbar{height:76px;background:rgba(255,254,250,.94);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;backdrop-filter:blur(14px)}
+    .nav{height:100%;display:flex;align-items:center;gap:28px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--green);font:800 21px "Plus Jakarta Sans",sans-serif;letter-spacing:-.8px;white-space:nowrap}
+    .brand-mark{width:34px;height:34px;border-radius:11px;background:var(--green);display:grid;place-items:center;color:#fff;font-size:19px}
+    .nav-links{display:flex;gap:22px;margin-left:10px}.nav-links a{color:#4e5b52;text-decoration:none;font-size:13px;font-weight:700}
+    .nav-links a:hover{color:var(--green)}
+    .search{height:43px;display:flex;align-items:center;gap:9px;background:#f5f6f1;border:1px solid var(--line);border-radius:12px;padding:0 13px;flex:1;max-width:390px;margin-left:auto}
+    .search input{border:0;outline:0;background:transparent;width:100%;font-size:13px;color:var(--ink)}
+    .btn{border:0;border-radius:11px;padding:12px 17px;font-weight:800;font-size:13px;transition:.2s}
+    .btn-primary{background:var(--green);color:white}.btn-primary:hover{background:#20553d;transform:translateY(-1px)}
+    .btn-soft{background:var(--green-3);color:var(--green)}.btn-outline{background:white;border:1px solid var(--line);color:var(--green)}
+    .icon-btn{width:40px;height:40px;border:1px solid var(--line);background:white;border-radius:12px;color:var(--green);font-size:17px}
+    .nav-actions{display:flex;align-items:center;gap:9px}
+    .hero{margin-top:25px;border-radius:28px;min-height:360px;overflow:hidden;position:relative;background:linear-gradient(110deg,#f2f1df 0%,#e8efda 58%,#dce9d1 100%);display:flex;align-items:center;padding:54px}
+    .hero:after{content:"";position:absolute;width:460px;height:460px;border-radius:50%;background:rgba(255,255,255,.32);right:5%;top:-160px}
+    .hero-copy{position:relative;z-index:2;max-width:520px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--green-2);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px}
+    h1,h2,h3,p{margin-top:0}h1{font:800 clamp(37px,5vw,58px)/1.08 "Plus Jakarta Sans",sans-serif;letter-spacing:-2.6px;color:#173a2b;margin:17px 0 15px}
+    .hero p{color:#526257;line-height:1.7;font-size:15px;max-width:420px;margin-bottom:22px}
+    .hero-search{display:flex;max-width:480px;background:white;border-radius:14px;padding:6px;box-shadow:0 8px 25px #193d2b12}
+    .hero-search input{border:0;outline:0;flex:1;min-width:0;padding:0 12px;font-size:13px}
+    .hero-location{margin-top:14px;color:#526257;font-size:12px}
+    .hero-art{position:absolute;right:2%;bottom:-10px;width:47%;height:95%;z-index:1;display:flex;align-items:center;justify-content:center}
+    .hero-art img{width:100%;height:100%;object-fit:contain;object-position:center bottom;mix-blend-mode:multiply}
+    .hero-sticker{position:absolute;right:8%;bottom:42px;background:#fff7d9;color:var(--green);padding:14px 17px;border-radius:17px;font-weight:800;font-size:13px;box-shadow:var(--shadow);transform:rotate(5deg);z-index:3}
+    .section{padding:38px 0 5px}.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px}
+    .section-head h2{font:800 23px "Plus Jakarta Sans",sans-serif;letter-spacing:-.7px;margin:0 0 5px}
+    .section-head p{color:var(--muted);font-size:13px;margin:0}
+    .text-link{color:var(--green-2);font-weight:800;font-size:12px;text-decoration:none}
+    .categories{display:grid;grid-template-columns:repeat(8,1fr);gap:12px}
+    .category{border:1px solid var(--line);background:var(--paper);border-radius:16px;padding:17px 8px;text-align:center;transition:.2s;color:var(--ink)}
+    .category:hover,.category.active{border-color:#a8c49e;background:#f0f5e9;transform:translateY(-2px)}
+    .category .emoji{font-size:25px;display:block;margin-bottom:9px}.category span:last-child{font-size:11px;font-weight:700;line-height:1.3;display:block}
+    .nearby{margin-top:35px;border-radius:20px;background:linear-gradient(105deg,#e8f0dc,#f2f3df);padding:23px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;overflow:hidden;position:relative}
+    .nearby:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:#ffffff50;right:24%;top:-160px}
+    .nearby-content{position:relative;z-index:1}.nearby h3{font:800 20px "Plus Jakarta Sans",sans-serif;margin:0 0 5px}.nearby p{font-size:12px;color:#647365;margin:0 0 14px}
+    .nearby-art{font-size:52px;opacity:.8;margin-right:9%;position:relative;z-index:1}
+    .filter-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:17px}
+    .filter-select{border:1px solid var(--line);background:white;border-radius:10px;padding:10px 12px;color:#536057;font-size:12px;outline:0}
+    .products{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+    .product{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.2s;position:relative}
+    .product:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .product-image{height:190px;background:#f0f0e9;position:relative;overflow:hidden;cursor:pointer}
+    .product-image img{width:100%;height:100%;object-fit:cover;transition:.35s}
+    .product:hover .product-image img{transform:scale(1.04)}
+    .heart{position:absolute;right:10px;top:10px;border:0;width:32px;height:32px;border-radius:50%;background:#fff;color:#657167;font-size:17px;box-shadow:0 3px 12px #0001}
+    .heart.saved{color:#dc655b}
+    .product-info{padding:12px}
+    .product-title{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:7px}
+    .price{font:800 16px "Plus Jakarta Sans",sans-serif;color:var(--green);margin-bottom:8px}
+    .product-meta{font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:5px}
+    .condition{position:absolute;left:10px;top:10px;background:#fffefaeb;border-radius:7px;padding:5px 8px;font-size:9px;font-weight:800;color:var(--green)}
+    .empty{grid-column:1/-1;padding:45px;text-align:center;background:white;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}
+    .sell-banner{margin:40px 0;border-radius:20px;padding:25px 30px;background:var(--green);color:white;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .sell-banner h2{font:800 22px "Plus Jakarta Sans",sans-serif;margin:0 0 6px}.sell-banner p{font-size:12px;color:#d2e1d4;margin:0}
+    .sell-banner .btn{background:#f8e9b8;color:var(--green)}
+    footer{background:#102f23;color:#fff;padding:36px 0 22px;margin-top:40px}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:35px}
+    footer .brand{color:#fff}footer p,footer a{font-size:12px;color:#c4d1c7;line-height:1.8;text-decoration:none}
+    footer h4{font-size:13px;margin:5px 0 12px}footer a{display:block}
+    .copyright{border-top:1px solid #ffffff20;margin-top:28px;padding-top:17px;color:#aabbb0;font-size:11px}
+    .modal-backdrop{position:fixed;inset:0;background:#10251dcc;z-index:50;display:none;align-items:center;justify-content:center;padding:20px}
+    .modal-backdrop.show{display:flex}.modal{background:#fffefa;border-radius:20px;width:min(650px,100%);max-height:90vh;overflow:auto;padding:25px;position:relative;box-shadow:0 25px 70px #0003}
+    .modal-close{position:absolute;right:17px;top:15px;border:0;background:#f0f2eb;border-radius:50%;width:34px;height:34px;font-size:18px}
+    .modal h2{font:800 22px "Plus Jakarta Sans",sans-serif;margin:0 40px 20px 0}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .detail-grid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;background:#f1f1e9}
+    .detail-price{font:800 23px "Plus Jakarta Sans",sans-serif;color:var(--green);margin:10px 0}
+    .detail-copy{font-size:13px;color:#647067;line-height:1.65}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}
+    .field label{font-size:12px;font-weight:800;color:#455349}
+    .field input,.field select,.field textarea{border:1px solid var(--line);border-radius:10px;padding:12px;background:white;outline:0;font-size:13px;width:100%}
+    .field textarea{min-height:90px;resize:vertical}
+    .hint{font-size:11px;color:var(--muted);line-height:1.5;margin-top:12px}
+    .mobile-menu{display:none}
+    @media(max-width:980px){.nav-links{display:none}.products{grid-template-columns:repeat(4,1fr)}.categories{grid-template-columns:repeat(4,1fr)}.hero{padding:40px}.hero-art{opacity:.55;width:50%;right:-5%}}
+    @media(max-width:680px){
+      .container{width:min(100% - 28px,560px)}.topbar{height:64px}.nav{gap:10px}.brand{font-size:18px}.brand-mark{width:30px;height:30px}
+      .search{display:none}.nav-actions{margin-left:auto}.nav-actions .btn{padding:10px 11px;font-size:11px}.nav-actions .icon-btn{display:none}
+      .hero{margin-top:14px;min-height:420px;padding:30px 23px;align-items:flex-start}.hero-copy{max-width:100%}h1{font-size:39px;letter-spacing:-1.8px}
+      .hero-art{width:75%;height:52%;right:-8%;bottom:-12px;opacity:.35}.hero-sticker{right:7%;bottom:22px}
+      .section{padding-top:30px}.section-head h2{font-size:20px}.categories{grid-template-columns:repeat(4,1fr);gap:8px}.category{padding:13px 5px}.category .emoji{font-size:22px}
+      .nearby{padding:20px;min-height:150px}.nearby-art{font-size:40px;margin-right:0}.nearby h3{font-size:17px}
+      .products{grid-template-columns:repeat(2,1fr);gap:11px}.product-image{height:160px}.product-info{padding:10px}.product-title{font-size:12px}.price{font-size:14px}
+      .filter-row{gap:6px}.filter-select{flex:1;min-width:calc(50% - 6px)}
+      .sell-banner{padding:22px;align-items:flex-start;flex-direction:column}.footer-grid{grid-template-columns:1fr 1fr;gap:22px}.footer-grid>div:first-child{grid-column:1/-1}
+      .detail-grid{grid-template-columns:1fr}.detail-grid img{max-height:260px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.modal{padding:21px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#"><span class="brand-mark">s</span>secondary.app</a>
+      <nav class="nav-links"><a href="#kategori">Kategori</a><a href="#nearby">Secondary Nearby</a><a href="#tentang">Tentang Kami</a></nav>
+      <label class="search"><span>⌕</span><input id="navSearch" type="search" placeholder="Cari barang preloved..." aria-label="Cari barang"></label>
+      <div class="nav-actions">
+        <button class="btn btn-primary" id="openSell">＋ Jual Barang</button>
+        <button class="icon-btn" aria-label="Notifikasi">♧</button>
+        <button class="icon-btn" aria-label="Profil">☺</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">✦ Temukan kesempatan kedua</span>
+        <h1>Barang Lama,<br>Cerita Baru.</h1>
+        <p>Temukan barang preloved berkualitas dari seluruh Indonesia. Lebih mudah mencari, lebih hemat berbelanja, dan lebih bijak menggunakan.</p>
+        <div class="hero-search">
+          <input id="heroSearch" type="search" placeholder="Cari HP, fashion, elektronik, dan lainnya...">
+          <button class="btn btn-primary" id="searchButton">Cari →</button>
+        </div>
+        <div class="hero-location">⌖ <span id="locationText">Jelajahi barang dari seluruh Indonesia</span></div>
+      </div>
+      <div class="hero-art">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1000&q=85" alt="Koleksi pakaian preloved">
+      </div>
+      <div class="hero-sticker">Jual • Beli<br>Lebih Mudah!</div>
+    </section>
+
+    <section class="section" id="kategori">
+      <div class="section-head"><div><h2>Jelajahi Kategori</h2><p>Temukan barang yang kamu cari dengan lebih cepat.</p></div></div>
+      <div class="categories" id="categories">
+        <button class="category active" data-category="Semua"><span class="emoji">✦</span><span>Semua</span></button>
+        <button class="category" data-category="Fashion"><span class="emoji">👕</span><span>Fashion & Aksesori</span></button>
+        <button class="category" data-category="Elektronik"><span class="emoji">🎧</span><span>Elektronik & Gadget</span></button>
+        <button class="category" data-category="Rumah"><span class="emoji">🪴</span><span>Rumah & Perabotan</span></button>
+        <button class="category" data-category="Otomotif"><span class="emoji">🚲</span><span>Otomotif</span></button>
+        <button class="category" data-category="Hobi"><span class="emoji">📷</span><span>Hobi & Olahraga</span></button>
+        <button class="category" data-category="Buku"><span class="emoji">📚</span><span>Buku & Alat Tulis</span></button>
+        <button class="category" data-category="Lainnya"><span class="emoji">＋</span><span>Lainnya</span></button>
+      </div>
+    </section>
+
+    <section class="nearby" id="nearby">
+      <div class="nearby-content">
+        <span class="eyebrow">⌖ Belanja lebih dekat</span>
+        <h3>Temukan harta karun di sekitarmu.</h3>
+        <p>Jelajahi barang preloved dari kota dan daerah pilihanmu.</p>
+        <button class="btn btn-primary" id="nearbyButton">Jelajahi produk →</button>
+      </div>
+      <div class="nearby-art" aria-hidden="true">📍</div>
+    </section>
+
+    <section class="section" id="produk">
+      <div class="section-head">
+        <div><h2>Temukan Barang Pilihan</h2><p>Barang menarik, cerita baru, harga lebih bersahabat.</p></div>
+        <a class="text-link" href="#produk" id="clearFilters">Reset filter ↗</a>
+      </div>
+      <div class="filter-row">
+        <select class="filter-select" id="cityFilter" aria-label="Filter lokasi">
+          <option value="">Semua lokasi</option><option>Jakarta Selatan</option><option>Bandung</option><option>Yogyakarta</option><option>Surabaya</option><option>Depok</option><option>Medan</option><option>Banda Aceh</option>
+        </select>
+        <select class="filter-select" id="sortFilter" aria-label="Urutkan produk">
+          <option value="newest">Terbaru</option><option value="low">Harga terendah</option><option value="high">Harga tertinggi</option>
+        </select>
+        <select class="filter-select" id="conditionFilter" aria-label="Filter kondisi">
+          <option value="">Semua kondisi</option><option value="Seperti Baru">Seperti Baru</option><option value="Bekas">Bekas</option><option value="Baru">Baru</option>
+        </select>
+      </div>
+      <div class="products" id="productGrid"></div>
+    </section>
+
+    <section class="sell-banner">
+      <div><h2>Barangmu punya cerita baru.</h2><p>Ubah barang yang sudah tidak terpakai menjadi peluang baru.</p></div>
+      <button class="btn" id="openSell2">Mulai Jual Barang →</button>
+    </section>
+  </main>
+
+  <footer id="tentang">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="#"><span class="brand-mark">s</span>secondary.app</a><p>Barang Lama, Cerita Baru.<br>Tempat menemukan dan memberikan kesempatan kedua untuk barang preloved.</p></div>
+        <div><h4>Jelajahi</h4><a href="#kategori">Kategori</a><a href="#nearby">Secondary Nearby</a><a href="#produk">Produk Terbaru</a></div>
+        <div><h4>Bantuan</h4><a href="#">Cara Berbelanja</a><a href="#">Cara Menjual</a><a href="#">Tips Transaksi Aman</a></div>
+        <div><h4>Informasi</h4><a href="#">Tentang Kami</a><a href="#">Kebijakan Privasi</a><a href="#">Syarat & Ketentuan</a></div>
+      </div>
+      <div class="copyright">© 2026 secondary.app. Dibuat untuk memberi barang kesempatan kedua.</div>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="detailModal">
+    <div class="modal">
+      <button class="modal-close" data-close="detailModal">×</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="sellModal">
+    <div class="modal">
+      <button class="modal-close" data-close="sellModal">×</button>
+      <h2>Jual barang di secondary.app</h2>
+      <form id="sellForm" class="form-grid">
+        <div class="field full"><label for="pName">Nama produk *</label><input id="pName" required maxlength="70" placeholder="Contoh: Sneakers putih ukuran 42"></div>
+        <div class="field"><label for="pCategory">Kategori *</label><select id="pCategory" required><option value="">Pilih kategori</option><option>Fashion</option><option>Elektronik</option><option>Rumah</option><option>Otomotif</option><option>Hobi</option><option>Buku</option><option>Lainnya</option></select></div>
+        <div class="field"><label for="pPrice">Harga (Rp) *</label><input id="pPrice" type="number" min="1" required placeholder="350000"></div>
+        <div class="field"><label for="pCondition">Kondisi *</label><select id="pCondition" required><option value="">Pilih kondisi</option><option>Baru</option><option>Seperti Baru</option><option>Bekas</option></select></div>
+        <div class="field"><label for="pCity">Kota / daerah *</label><input id="pCity" required placeholder="Contoh: Banda Aceh"></div>
+        <div class="field full"><label for="pDescription">Deskripsi produk *</label><textarea id="pDescription" required placeholder="Jelaskan kondisi, ukuran, kelengkapan, atau kekurangan barang..."></textarea></div>
+        <div class="field full"><label for="pImage">URL foto produk</label><input id="pImage" type="url" placeholder="https://... (opsional)"></div>
+        <div class="field full"><label for="pWhatsapp">Nomor WhatsApp penjual *</label><input id="pWhatsapp" required inputmode="tel" placeholder="Contoh: 628123456789"></div>
+        <div class="field full"><button class="btn btn-primary" type="submit">Terbitkan Produk →</button></div>
+      </form>
+      <p class="hint">Demo ini menyimpan produk hanya selama halaman masih terbuka. Untuk publikasi sungguhan diperlukan database, autentikasi, penyimpanan foto, dan moderasi.</p>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      {id:1,name:"Nike Air Force 1",price:750000,category:"Fashion",condition:"Seperti Baru",city:"Jakarta Selatan",image:"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=700&q=80",description:"Sneakers original, kondisi sangat baik dan jarang dipakai. Ukuran 42.",seller:"Dika Pratama",wa:"628123456789"},
+      {id:2,name:"Ransel Eiger",price:850000,category:"Fashion",condition:"Bekas",city:"Depok",image:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80",description:"Tas ransel untuk aktivitas harian. Resleting dan jahitan masih berfungsi baik.",seller:"Nadia",wa:"628123456789"},
+      {id:3,name:"Sony WH-CH520",price:550000,category:"Elektronik",condition:"Seperti Baru",city:"Bandung",image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80",description:"Headphone wireless, suara normal, baterai masih awet. Termasuk kabel.",seller:"Rizky",wa:"628123456789"},
+      {id:4,name:"Jaket Outdoor",price:300000,category:"Fashion",condition:"Bekas",city:"Yogyakarta",image:"https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=80",description:"Jaket outdoor nyaman dipakai. Tidak ada sobekan.",seller:"Fajar",wa:"628123456789"},
+      {id:5,name:"Kamera Mirrorless",price:4200000,category:"Hobi",condition:"Bekas",city:"Surabaya",image:"https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=700&q=80",description:"Kamera mirrorless untuk belajar fotografi. Kondisi normal.",seller:"Alya",wa:"628123456789"},
+      {id:6,name:"Jam Tangan Klasik",price:450000,category:"Fashion",condition:"Seperti Baru",city:"Medan",image:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=700&q=80",description:"Jam tangan bergaya klasik, tampilan bersih dan berfungsi.",seller:"Bima",wa:"628123456789"},
+      {id:7,name:"Kursi Kayu Minimalis",price:275000,category:"Rumah",condition:"Bekas",city:"Banda Aceh",image:"https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=700&q=80",description:"Kursi kayu minimalis, kokoh dan cocok untuk ruang kerja.",seller:"Sarah",wa:"628123456789"},
+      {id:8,name:"Buku Design Basics",price:95000,category:"Buku",condition:"Seperti Baru",city:"Bandung",image:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=700&q=80",description:"Buku masih rapi, halaman lengkap dan bersih.",seller:"Tania",wa:"628123456789"},
+      {id:9,name:"Helm Retro",price:320000,category:"Otomotif",condition:"Bekas",city:"Depok",image:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80",description:"Helm bergaya retro. Periksa ukuran dan kondisi langsung sebelum membeli.",seller:"Arman",wa:"628123456789"},
+      {id:10,name:"Lampu Meja",price:180000,category:"Rumah",condition:"Baru",city:"Jakarta Selatan",image:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80",description:"Lampu meja minimalis, cocok untuk meja belajar atau kerja.",seller:"Nina",wa:"628123456789"}
+    ];
+    let activeCategory="Semua", query="", favorites=new Set();
+    const rupiah=n=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n);
+    const grid=document.getElementById("productGrid");
+    function render(){
+      let list=products.filter(p=>(activeCategory==="Semua"||p.category===activeCategory)&&
+        (p.name+" "+p.description+" "+p.city+" "+p.category).toLowerCase().includes(query.toLowerCase())&&
+        (!document.getElementById("cityFilter").value||p.city===document.getElementById("cityFilter").value)&&
+        (!document.getElementById("conditionFilter").value||p.condition===document.getElementById("conditionFilter").value));
+      const sort=document.getElementById("sortFilter").value;
+      if(sort==="low")list.sort((a,b)=>a.price-b.price);if(sort==="high")list.sort((a,b)=>b.price-a.price);if(sort==="newest")list.sort((a,b)=>b.id-a.id);
+      grid.innerHTML=list.length?list.map(p=>`
+        <article class="product">
+          <div class="product-image" data-detail="${p.id}">
+            <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://placehold.co/600x600/e8f0dc/153d2d?text=secondary.app'">
+            <span class="condition">${p.condition}</span>
+            <button class="heart ${favorites.has(p.id)?"saved":""}" data-heart="${p.id}" aria-label="Simpan favorit">${favorites.has(p.id)?"♥":"♡"}</button>
+          </div>
+          <div class="product-info" data-detail="${p.id}">
+            <div class="product-title">${escapeHtml(p.name)}</div>
+            <div class="price">${rupiah(p.price)}</div>
+            <div class="product-meta"><span>⌖ ${escapeHtml(p.city)}</span><span>Barang preloved</span></div>
+          </div>
+        </article>`).join(""):`<div class="empty"><div style="font-size:30px;margin-bottom:10px">⌕</div><b>Produk belum ditemukan</b><p>Coba kata kunci atau filter yang berbeda.</p></div>`;
+    }
+    function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+    function setQuery(v){query=v;document.getElementById("heroSearch").value=v;document.getElementById("navSearch").value=v;render();}
+    document.getElementById("heroSearch").addEventListener("input",e=>setQuery(e.target.value));
+    document.getElementById("navSearch").addEventListener("input",e=>setQuery(e.target.value));
+    document.getElementById("searchButton").onclick=()=>{document.getElementById("produk").scrollIntoView({behavior:"smooth"});render();};
+    document.querySelectorAll(".category").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".category").forEach(x=>x.classList.remove("active"));b.classList.add("active");activeCategory=b.dataset.category;render();}));
+    ["cityFilter","sortFilter","conditionFilter"].forEach(id=>document.getElementById(id).addEventListener("change",render));
+    document.getElementById("clearFilters").onclick=()=>{activeCategory="Semua";query="";favorites.clear();document.querySelectorAll(".category").forEach(x=>x.classList.toggle("active",x.dataset.category==="Semua"));document.getElementById("cityFilter").value="";document.getElementById("conditionFilter").value="";document.getElementById("sortFilter").value="newest";setQuery("");render();};
+    document.getElementById("nearbyButton").onclick=()=>{document.getElementById("cityFilter").focus();document.getElementById("produk").scrollIntoView({behavior:"smooth"});};
+    grid.addEventListener("click",e=>{
+      const heart=e.target.closest("[data-heart]");if(heart){const id=Number(heart.dataset.heart);favorites.has(id)?favorites.delete(id):favorites.add(id);render();return;}
+      const card=e.target.closest("[data-detail]");if(card)showDetail(Number(card.dataset.detail));
+    });
+    function showDetail(id){
+      const p=products.find(x=>x.id===id);if(!p)return;
+      document.getElementById("detailContent").innerHTML=`
+        <div class="detail-grid"><img src="${p.image}" alt="${escapeHtml(p.name)}">
+          <div><span class="eyebrow">${escapeHtml(p.category)} · ${escapeHtml(p.condition)}</span><h2 style="margin:10px 0">${escapeHtml(p.name)}</h2>
+            <div class="detail-price">${rupiah(p.price)}</div><p class="detail-copy">⌖ ${escapeHtml(p.city)}</p>
+            <p class="detail-copy">${escapeHtml(p.description)}</p>
+            <p class="detail-copy"><b>Penjual:</b> ${escapeHtml(p.seller)}</p>
+            <a class="btn btn-primary" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/${encodeURIComponent(p.wa)}?text=${encodeURIComponent("Halo, saya tertarik dengan "+p.name+" di secondary.app. Apakah masih tersedia?")}">☏ Hubungi Penjual</a>
+          </div></div><p class="hint">Pastikan kondisi barang dan kesepakatan transaksi sebelum melakukan pembayaran. secondary.app tidak memproses pembayaran pada versi demo ini.</p>`;
+      openModal("detailModal");
+    }
+    function openModal(id){document.getElementById(id).classList.add("show");}
+    function closeModal(id){document.getElementById(id).classList.remove("show");}
+    document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
+    document.querySelectorAll(".modal-backdrop").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)closeModal(m.id);}));
+    document.getElementById("openSell").onclick=()=>openModal("sellModal");
+    document.getElementById("openSell2").onclick=()=>openModal("sellModal");
+    document.getElementById("sellForm").addEventListener("submit",e=>{
+      e.preventDefault();
+      const wa=document.getElementById("pWhatsapp").value.replace(/\D/g,"");
+      const image=document.getElementById("pImage").value.trim()||"https://placehold.co/600x600/e8f0dc/153d2d?text=Foto+Produk";
+      products.unshift({id:Date.now(),name:document.getElementById("pName").value,category:document.getElementById("pCategory").value,price:Number(document.getElementById("pPrice").value),condition:document.getElementById("pCondition").value,city:document.getElementById("pCity").value,image,description:document.getElementById("pDescription").value,seller:"Penjual Demo",wa});
+      e.target.reset();closeModal("sellModal");activeCategory="Semua";document.querySelectorAll(".category").forEach(x=>x.classList.toggle("active",x.dataset.category==="Semua"));document.getElementById("cityFilter").value="";setQuery("");render();document.getElementById("produk").scrollIntoView({behavior:"smooth"});
+      alert("Produk berhasil ditambahkan ke tampilan demo!");
+    });
+    render();
+  </script>
+</body>
+</html>
